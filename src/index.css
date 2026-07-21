@@ -5,10 +5,10 @@
     margin: 0;
     padding: 0;
     font-family: 'Fredoka', 'Outfit', system-ui, -apple-system, sans-serif;
-    background-color: #6fb5e6;
+    background-color: #e5a489;
     background-image: 
-      radial-gradient(circle at 50% 15%, rgba(255, 250, 220, 0.45) 0%, transparent 60%),
-      linear-gradient(to bottom, #57a6e0 0%, #7dc0f0 40%, #a4daf8 100%);
+      radial-gradient(circle at 50% 20%, rgba(255, 245, 230, 0.4) 0%, transparent 60%),
+      linear-gradient(to bottom, #d88d70 0%, #e6a88e 45%, #f2beaa 100%);
     background-size: 100% 100%;
     color: #1a2b3c;
     min-height: 100vh;
@@ -16,9 +16,35 @@
   }
 }
 
-/* Authentic Windows Vista / 7 Skeuomorphic Aesthetics */
+/* Black & White Diagonal Checkered Tile Floor */
+.checkered-floor {
+  background-color: #f8fafc;
+  background-image: 
+    linear-gradient(45deg, #1e293b 25%, transparent 25%),
+    linear-gradient(-45deg, #1e293b 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #1e293b 75%),
+    linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 0 20px, 20px -20px, -20px 0px;
+  box-shadow: inset 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* White Tiled Counter Wall Panel */
+.white-tile-counter {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(to right, #cbd5e1 1px, transparent 1px),
+    linear-gradient(to bottom, #cbd5e1 1px, transparent 1px);
+  background-size: 32px 32px;
+  box-shadow: 
+    0 -4px 10px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 1);
+  border-top: 4px solid #94a3b8;
+}
+
+/* Authentic Windows Vista Glass / Skeuomorphic Aesthetics */
 .skeuo-card {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(225, 240, 255, 0.8) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(230, 242, 255, 0.85) 100%);
   backdrop-filter: blur(14px);
   border: 3px solid rgba(255, 255, 255, 0.95);
   box-shadow: 
@@ -28,9 +54,9 @@
   border-radius: 1.5rem;
 }
 
-/* Industrial Machine Housing for Bakery Stations */
-.dispenser-machine {
-  background: linear-gradient(to bottom, #ffffff 0%, #e1effe 30%, #b8d9f8 70%, #9bc4ed 100%);
+/* Ceiling-Mounted Industrial Machine Stations */
+.ceiling-machine {
+  background: linear-gradient(to bottom, #ffffff 0%, #e1effe 35%, #b8d9f8 75%, #9bc4ed 100%);
   border: 3px solid #6b9ee0;
   box-shadow: 
     0 10px 20px rgba(10, 40, 80, 0.25),
@@ -52,7 +78,7 @@
     opacity: 0.9;
   }
   50% {
-    height: 38px;
+    height: 42px;
     opacity: 1;
   }
   100% {
@@ -65,92 +91,98 @@
   animation: pourStream 0.5s ease-in-out forwards;
 }
 
-.skeuo-btn {
-  background: linear-gradient(to bottom, #ffffff 0%, #e3effc 40%, #c4ddf8 50%, #d8eafe 100%);
-  border: 2px solid #8cb7e8;
+.counter-square-btn {
+  background: linear-gradient(to bottom, #ffffff 0%, #e2effd 40%, #badafb 50%, #cbe3fc 100%);
+  border: 3px solid #7eaee3;
   box-shadow: 
-    0 4px 8px rgba(0, 30, 70, 0.2),
-    inset 0 2px 3px rgba(255, 255, 255, 0.9),
-    inset 0 -2px 4px rgba(0, 40, 100, 0.15);
-  transition: all 0.15s ease;
+    0 5px 10px rgba(0, 30, 70, 0.22),
+    inset 0 2px 4px rgba(255, 255, 255, 0.95),
+    inset 0 -3px 5px rgba(0, 40, 100, 0.2);
+  transition: all 0.12s ease;
 }
 
-.skeuo-btn:hover:not(:disabled) {
-  background: linear-gradient(to bottom, #ffffff 0%, #f0f7ff 40%, #d5e8ff 50%, #e4f1ff 100%);
-  border-color: #5c9be5;
+.counter-square-btn:hover:not(:disabled) {
+  background: linear-gradient(to bottom, #ffffff 0%, #eff6ff 40%, #cde4fe 50%, #deeeff 100%);
+  border-color: #4f93e3;
   box-shadow: 
-    0 6px 12px rgba(0, 40, 100, 0.25),
-    inset 0 2px 4px rgba(255, 255, 255, 1),
-    0 0 10px rgba(92, 155, 229, 0.4);
+    0 7px 14px rgba(0, 40, 100, 0.28),
+    inset 0 2px 5px rgba(255, 255, 255, 1),
+    0 0 12px rgba(79, 147, 227, 0.45);
   transform: translateY(-1px);
 }
 
-.skeuo-btn:active:not(:disabled) {
-  background: linear-gradient(to bottom, #b8d7fa 0%, #9bc4f5 50%, #cee3fb 100%);
+.counter-square-btn:active:not(:disabled) {
+  background: linear-gradient(to bottom, #accff8 0%, #8ebd5f5 50%, #c4dffa 100%);
   box-shadow: 
-    inset 0 3px 6px rgba(0, 30, 80, 0.35),
+    inset 0 4px 8px rgba(0, 30, 80, 0.4),
     0 2px 4px rgba(0, 20, 50, 0.15);
-  transform: translateY(1px);
+  transform: translateY(2px);
 }
 
-/* 3D Metal Mesh Conveyor Belt */
-.metal-mesh-conveyor {
-  background-color: #1c2738;
+/* Wide Gray Segmented Conveyor Belt */
+.segmented-metal-conveyor {
+  background-color: #334155;
   background-image: 
-    radial-gradient(#4d627c 25%, transparent 26%),
-    radial-gradient(#2d3c50 25%, transparent 26%),
-    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 16px 16px, 16px 16px, 32px 100%;
-  background-position: 0 0, 8px 8px, 0 0;
+    linear-gradient(90deg, #1e293b 2px, transparent 2px),
+    linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, transparent 40%, rgba(0,0,0,0.4) 100%);
+  background-size: 28px 100%, 100% 100%;
   box-shadow: 
-    inset 0 10px 15px rgba(0, 0, 0, 0.75),
-    inset 0 -10px 15px rgba(0, 0, 0, 0.75),
-    0 12px 28px rgba(0, 20, 50, 0.35);
+    inset 0 12px 18px rgba(0, 0, 0, 0.8),
+    inset 0 -12px 18px rgba(0, 0, 0, 0.8),
+    0 12px 30px rgba(0, 20, 50, 0.4);
 }
 
-@keyframes scrollMesh {
+@keyframes scrollSegmented {
   0% {
-    background-position: 0 0, 8px 8px, 0 0;
+    background-position: 0 0, 0 0;
   }
   100% {
-    background-position: 32px 0, 40px 8px, 32px 0;
+    background-position: 28px 0, 0 0;
   }
 }
 
 .animate-conveyor-active {
-  animation: scrollMesh 0.7s linear infinite;
+  animation: scrollSegmented 0.6s linear infinite;
 }
 
-/* Vista Green Start Orb Button */
-.vista-orb-btn {
+/* Floor Glowing Green Round Advance Button */
+.floor-green-orb {
   background: radial-gradient(circle at 35% 30%, #a4f56e 0%, #46cc1b 45%, #239604 75%, #135c00 100%);
-  border: 3px solid #7be83a;
+  border: 4px solid #7be83a;
   box-shadow: 
-    0 10px 20px rgba(20, 100, 5, 0.4),
-    inset 0 4px 6px rgba(255, 255, 255, 0.85),
-    inset 0 -5px 10px rgba(0, 40, 0, 0.6),
-    0 0 15px rgba(70, 204, 27, 0.5);
+    0 12px 24px rgba(20, 100, 5, 0.5),
+    inset 0 5px 8px rgba(255, 255, 255, 0.9),
+    inset 0 -6px 12px rgba(0, 40, 0, 0.65),
+    0 0 20px rgba(70, 204, 27, 0.6);
   transition: all 0.15s ease;
 }
 
-.vista-orb-btn:hover:not(:disabled) {
+.floor-green-orb:hover:not(:disabled) {
   background: radial-gradient(circle at 35% 30%, #baff87 0%, #54e327 45%, #2bb807 75%, #187301 100%);
   box-shadow: 
-    0 12px 25px rgba(20, 120, 5, 0.5),
-    inset 0 5px 8px rgba(255, 255, 255, 0.95),
-    0 0 25px rgba(84, 227, 39, 0.7);
-  transform: translateY(-2px) scale(1.02);
+    0 15px 30px rgba(20, 120, 5, 0.6),
+    inset 0 6px 10px rgba(255, 255, 255, 1),
+    0 0 30px rgba(84, 227, 39, 0.8);
+  transform: translateY(-2px) scale(1.03);
 }
 
-.vista-orb-btn:active:not(:disabled) {
+.floor-green-orb:active:not(:disabled) {
   background: radial-gradient(circle at 35% 30%, #3bbd11 0%, #1e8703 60%, #0e4f00 100%);
   box-shadow: 
-    inset 0 5px 12px rgba(0, 30, 0, 0.7),
-    0 3px 6px rgba(0, 30, 0, 0.3);
-  transform: translateY(2px) scale(0.98);
+    inset 0 6px 14px rgba(0, 30, 0, 0.75),
+    0 4px 8px rgba(0, 30, 0, 0.35);
+  transform: translateY(3px) scale(0.97);
 }
 
-/* CRT Screen Effect for 1950s TV */
+/* Light Blue Square CRT Television Monitor */
+.blue-crt-tv {
+  background: linear-gradient(to bottom, #38bdf8 0%, #0284c7 50%, #0369a1 100%);
+  border: 5px solid #075985;
+  box-shadow: 
+    0 12px 25px rgba(0, 30, 70, 0.4),
+    inset 0 3px 6px rgba(255, 255, 255, 0.8);
+}
+
 .crt-screen {
   background: linear-gradient(to bottom, #fffbe8 0%, #f5e9c9 100%);
   border: 4px solid #4a3427;
