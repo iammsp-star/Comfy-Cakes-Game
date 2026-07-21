@@ -2,7 +2,10 @@
 
 A modern, high-fidelity web recreation of the iconic **Purble Place: Comfy Cakes** bakery game from Windows Vista. Built with **React 18**, **TypeScript**, **Vite**, **Tailwind CSS v4**, and **Web Audio API**.
 
+> 🎮 **[Click Here to Play the Game Online!](https://iammsp-star.github.io/Comfy-Cakes-Game/)** 🍰
+
 ---
+
 
 ## 🌟 Features
 
