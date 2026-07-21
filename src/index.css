@@ -112,12 +112,13 @@
 }
 
 .counter-square-btn:active:not(:disabled) {
-  background: linear-gradient(to bottom, #accff8 0%, #8ebd5f5 50%, #c4dffa 100%);
+  background: linear-gradient(to bottom, #accff8 0%, #8ebd5f 50%, #c4dffa 100%);
   box-shadow: 
     inset 0 4px 8px rgba(0, 30, 80, 0.4),
     0 2px 4px rgba(0, 20, 50, 0.15);
   transform: translateY(2px);
 }
+
 
 /* Wide Gray Segmented Conveyor Belt */
 .segmented-metal-conveyor {
