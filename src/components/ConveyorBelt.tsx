@@ -13,6 +13,7 @@ interface ConveyorBeltProps {
   onDeliverCake: (cakeId: string) => void;
   onTrashCake: (cakeId: string) => void;
   onAdvanceBelt: () => void;
+  onReturnToBatter?: (cakeId: string) => void;
 }
 
 export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
@@ -25,12 +26,21 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
   onDeliverCake,
   onTrashCake,
   onAdvanceBelt,
+  onReturnToBatter,
 }) => {
   const [isBeltMoving, setIsBeltMoving] = useState(false);
+  const [activeDispenser, setActiveDispenser] = useState<number | null>(null);
 
   // Find active cake at each station index
   const getCakeAtStation = (stationIdx: number) => {
     return activeCakes.find((c) => c.currentStationIndex === stationIdx && !c.isScrapped);
+  };
+
+  const triggerDispenseAnimation = (stationIdx: number) => {
+    setActiveDispenser(stationIdx);
+    setTimeout(() => {
+      setActiveDispenser(null);
+    }, 550);
   };
 
   const handleAdvance = () => {
@@ -39,194 +49,234 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
     onAdvanceBelt();
     setTimeout(() => {
       setIsBeltMoving(false);
-    }, 600);
+    }, 650);
   };
 
   return (
     <div className="relative w-full max-w-6xl flex flex-col items-center select-none my-3">
-      {/* Skeuomorphic Vista Gadget Machinery Stations (0-5) */}
-      <div className="w-full grid grid-cols-6 gap-3 mb-3 px-2">
-        {/* Station 0: Pan Station Gadget (Purple) */}
-        <div className="bg-gradient-to-b from-purple-700 via-purple-800 to-purple-900 p-3 rounded-2xl border-3 border-purple-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+      {/* Physical Industrial Dispenser Machines Mounted Above Conveyor Line (0-5) */}
+      <div className="w-full grid grid-cols-6 gap-3 mb-2 px-2">
+        {/* Station 0: Metallic Pan Dropper Machine */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-purple-300 shadow-[0_0_8px_#c084fc]" />
-            <span className="text-xs font-black text-purple-100 tracking-wider uppercase drop-shadow-md">
-              0. PAN
+            <div className="w-2.5 h-2.5 rounded-full bg-purple-500 shadow-[0_0_8px_#a855f7]" />
+            <span className="text-xs font-black text-purple-950 uppercase tracking-wider">
+              PAN DROPPER
             </span>
           </div>
-          <div className="flex flex-col gap-1.5 w-full my-1">
+
+          <div className="flex flex-col gap-1.5 w-full my-1 z-10">
             <button
-              onClick={() => { audioSynth.playPanDrop(); onSelectShape('square'); }}
+              onClick={() => { triggerDispenseAnimation(0); onSelectShape('square'); }}
               disabled={!!getCakeAtStation(0)?.shape}
-              className="skeuo-btn py-1.5 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               ⏹️ Square
             </button>
             <button
-              onClick={() => { audioSynth.playPanDrop(); onSelectShape('circle'); }}
+              onClick={() => { triggerDispenseAnimation(0); onSelectShape('circle'); }}
               disabled={!!getCakeAtStation(0)?.shape}
-              className="skeuo-btn py-1.5 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               ⏺️ Circle
             </button>
             <button
-              onClick={() => { audioSynth.playPanDrop(); onSelectShape('heart'); }}
+              onClick={() => { triggerDispenseAnimation(0); onSelectShape('heart'); }}
               disabled={!!getCakeAtStation(0)?.shape}
-              className="skeuo-btn py-1.5 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-2 rounded-xl text-xs font-black text-slate-800 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               ❤️ Heart
             </button>
           </div>
+
+          {/* Machine Mechanical Spout Nozzle */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-slate-900 rounded-full" />
+          </div>
         </div>
 
-        {/* Station 1: Batter Dispenser Gadget (Red / Crimson) */}
-        <div className="bg-gradient-to-b from-rose-700 via-rose-800 to-rose-950 p-3 rounded-2xl border-3 border-rose-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+        {/* Station 1: Industrial Batter Injector Machine */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-rose-300 shadow-[0_0_8px_#fda4af]" />
-            <span className="text-xs font-black text-rose-100 tracking-wider uppercase drop-shadow-md">
-              1. BATTER
+            <div className="w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_8px_#f43f5e]" />
+            <span className="text-xs font-black text-rose-950 uppercase tracking-wider">
+              BATTER SPOUT
             </span>
           </div>
-          <div className="flex flex-col gap-1.5 w-full my-1">
+
+          <div className="flex flex-col gap-1.5 w-full my-1 z-10">
             <button
-              onClick={() => { audioSynth.playBatterDispense(); onAddBatter('chocolate'); }}
+              onClick={() => { triggerDispenseAnimation(1); onAddBatter('chocolate'); }}
               disabled={!getCakeAtStation(1)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍫 Choco
             </button>
             <button
-              onClick={() => { audioSynth.playBatterDispense(); onAddBatter('strawberry'); }}
+              onClick={() => { triggerDispenseAnimation(1); onAddBatter('strawberry'); }}
               disabled={!getCakeAtStation(1)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍓 Straw
             </button>
             <button
-              onClick={() => { audioSynth.playBatterDispense(); onAddBatter('vanilla'); }}
+              onClick={() => { triggerDispenseAnimation(1); onAddBatter('vanilla'); }}
               disabled={!getCakeAtStation(1)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍦 Vanilla
             </button>
           </div>
+
+          {/* Batter Spout Nozzle & Animated Stream */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-rose-900 rounded-full" />
+            {activeDispenser === 1 && (
+              <div className="absolute top-4 w-3 bg-gradient-to-b from-amber-700 via-amber-500 to-amber-800 rounded-b-full animate-pour z-30" />
+            )}
+          </div>
         </div>
 
-        {/* Station 2: Filling Station Gadget (Light Blue) */}
-        <div className="bg-gradient-to-b from-sky-700 via-sky-800 to-sky-950 p-3 rounded-2xl border-3 border-sky-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+        {/* Station 2: Cream Filling Injector Machine */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-sky-300 shadow-[0_0_8px_#7dd3fc]" />
-            <span className="text-xs font-black text-sky-100 tracking-wider uppercase drop-shadow-md">
-              2. FILLING
+            <div className="w-2.5 h-2.5 rounded-full bg-sky-500 shadow-[0_0_8px_#0284c7]" />
+            <span className="text-xs font-black text-sky-950 uppercase tracking-wider">
+              CREAM FILLING
             </span>
           </div>
-          <div className="flex flex-col gap-1.5 w-full my-1">
+
+          <div className="flex flex-col gap-1.5 w-full my-1 z-10">
             <button
-              onClick={() => { audioSynth.playFillingDispense(); onAddFilling('chocolate'); }}
+              onClick={() => { triggerDispenseAnimation(2); onAddFilling('chocolate'); }}
               disabled={!getCakeAtStation(2) || (getCakeAtStation(2)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍫 Choco
             </button>
             <button
-              onClick={() => { audioSynth.playFillingDispense(); onAddFilling('strawberry'); }}
+              onClick={() => { triggerDispenseAnimation(2); onAddFilling('strawberry'); }}
               disabled={!getCakeAtStation(2) || (getCakeAtStation(2)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍓 Straw
             </button>
             <button
-              onClick={() => { audioSynth.playFillingDispense(); onAddFilling('vanilla'); }}
+              onClick={() => { triggerDispenseAnimation(2); onAddFilling('vanilla'); }}
               disabled={!getCakeAtStation(2) || (getCakeAtStation(2)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍦 Vanilla
             </button>
           </div>
+
+          {/* Filling Injector Spout */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-sky-900 rounded-full" />
+            {activeDispenser === 2 && (
+              <div className="absolute top-4 w-3 bg-gradient-to-b from-pink-300 via-pink-400 to-pink-500 rounded-b-full animate-pour z-30" />
+            )}
+          </div>
         </div>
 
-        {/* Station 3: Icing Machine Gadget (Magenta / Pink) */}
-        <div className="bg-gradient-to-b from-fuchsia-700 via-fuchsia-800 to-fuchsia-950 p-3 rounded-2xl border-3 border-fuchsia-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+        {/* Station 3: Top Icing Piping Machine */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-fuchsia-300 shadow-[0_0_8px_#f0abfc]" />
-            <span className="text-xs font-black text-fuchsia-100 tracking-wider uppercase drop-shadow-md">
-              3. ICING
+            <div className="w-2.5 h-2.5 rounded-full bg-fuchsia-500 shadow-[0_0_8px_#d946ef]" />
+            <span className="text-xs font-black text-fuchsia-950 uppercase tracking-wider">
+              ICING PIPING
             </span>
           </div>
-          <div className="flex flex-col gap-1.5 w-full my-1">
+
+          <div className="flex flex-col gap-1.5 w-full my-1 z-10">
             <button
-              onClick={() => { audioSynth.playIcingDispense(); onAddIcing('chocolate'); }}
+              onClick={() => { triggerDispenseAnimation(3); onAddIcing('chocolate'); }}
               disabled={!getCakeAtStation(3) || (getCakeAtStation(3)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-amber-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍫 Choco
             </button>
             <button
-              onClick={() => { audioSynth.playIcingDispense(); onAddIcing('strawberry'); }}
+              onClick={() => { triggerDispenseAnimation(3); onAddIcing('strawberry'); }}
               disabled={!getCakeAtStation(3) || (getCakeAtStation(3)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-rose-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍓 Straw
             </button>
             <button
-              onClick={() => { audioSynth.playIcingDispense(); onAddIcing('vanilla'); }}
+              onClick={() => { triggerDispenseAnimation(3); onAddIcing('vanilla'); }}
               disabled={!getCakeAtStation(3) || (getCakeAtStation(3)?.layers.length === 0)}
-              className="skeuo-btn py-1.5 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
+              className="skeuo-btn py-1 px-1.5 rounded-xl text-xs font-black text-yellow-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍦 Vanilla
             </button>
           </div>
+
+          {/* Icing Piping Nozzle */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-fuchsia-900 rounded-full" />
+            {activeDispenser === 3 && (
+              <div className="absolute top-4 w-3.5 bg-gradient-to-b from-white via-pink-200 to-white rounded-b-full animate-pour z-30" />
+            )}
+          </div>
         </div>
 
-        {/* Station 4: Topping Dispenser Gadget (Green) */}
-        <div className="bg-gradient-to-b from-emerald-700 via-emerald-800 to-emerald-950 p-3 rounded-2xl border-3 border-emerald-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+        {/* Station 4: Garnish Topping Shaker Machine */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-emerald-300 shadow-[0_0_8px_#6ee7b7]" />
-            <span className="text-xs font-black text-emerald-100 tracking-wider uppercase drop-shadow-md">
-              4. TOPPING
+            <div className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]" />
+            <span className="text-xs font-black text-emerald-950 uppercase tracking-wider">
+              TOPPING SHAKER
             </span>
           </div>
-          <div className="flex flex-col gap-1 w-full my-1">
+
+          <div className="flex flex-col gap-1 w-full my-1 z-10">
             <button
-              onClick={() => { audioSynth.playToppingDispense(); onAddTopping('cherry'); }}
+              onClick={() => { triggerDispenseAnimation(4); onAddTopping('cherry'); }}
               disabled={!getCakeAtStation(4) || (getCakeAtStation(4)?.layers.length === 0)}
               className="skeuo-btn py-0.5 px-1 rounded-lg text-[11px] font-black text-emerald-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍒 Cherry
             </button>
             <button
-              onClick={() => { audioSynth.playToppingDispense(); onAddTopping('gumdrop'); }}
+              onClick={() => { triggerDispenseAnimation(4); onAddTopping('gumdrop'); }}
               disabled={!getCakeAtStation(4) || (getCakeAtStation(4)?.layers.length === 0)}
               className="skeuo-btn py-0.5 px-1 rounded-lg text-[11px] font-black text-emerald-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍬 Gumdrop
             </button>
             <button
-              onClick={() => { audioSynth.playToppingDispense(); onAddTopping('clover'); }}
+              onClick={() => { triggerDispenseAnimation(4); onAddTopping('clover'); }}
               disabled={!getCakeAtStation(4) || (getCakeAtStation(4)?.layers.length === 0)}
               className="skeuo-btn py-0.5 px-1 rounded-lg text-[11px] font-black text-emerald-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               🍀 Clover
             </button>
             <button
-              onClick={() => { audioSynth.playToppingDispense(); onAddTopping('powdered_sugar'); }}
+              onClick={() => { triggerDispenseAnimation(4); onAddTopping('powdered_sugar'); }}
               disabled={!getCakeAtStation(4) || (getCakeAtStation(4)?.layers.length === 0)}
               className="skeuo-btn py-0.5 px-1 rounded-lg text-[11px] font-black text-emerald-950 disabled:opacity-40 flex items-center justify-center gap-1 cursor-pointer"
             >
               ✨ Sugar
             </button>
           </div>
+
+          {/* Shaker Nozzle */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-emerald-900 rounded-full" />
+          </div>
         </div>
 
-        {/* Station 5: Shipping Box & Scrap Gadget (Dark Blue) */}
-        <div className="bg-gradient-to-b from-indigo-700 via-indigo-800 to-indigo-950 p-3 rounded-2xl border-3 border-indigo-400 shadow-xl flex flex-col items-center justify-between text-center min-h-[150px] relative overflow-hidden">
+        {/* Station 5: Quality Inspection & Shipping Box */}
+        <div className="dispenser-machine p-2.5 rounded-2xl flex flex-col items-center justify-between text-center min-h-[160px] relative overflow-hidden">
           <div className="flex items-center gap-1.5 mb-1">
-            <div className="w-2.5 h-2.5 rounded-full bg-indigo-300 shadow-[0_0_8px_#a5b4fc]" />
-            <span className="text-xs font-black text-indigo-100 tracking-wider uppercase drop-shadow-md">
-              5. SHIPPING
+            <div className="w-2.5 h-2.5 rounded-full bg-indigo-500 shadow-[0_0_8px_#6366f1]" />
+            <span className="text-xs font-black text-indigo-950 uppercase tracking-wider">
+              SHIPPING BOX
             </span>
           </div>
-          <div className="flex flex-col gap-1.5 w-full my-1">
+
+          <div className="flex flex-col gap-1.5 w-full my-1 z-10">
             <button
               onClick={() => {
                 const c = getCakeAtStation(5);
@@ -237,29 +287,39 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
             >
               📦 SHIP!
             </button>
-            <button
-              onClick={() => {
-                const c = getCakeAtStation(5) || activeCakes.find((cake) => !cake.isScrapped);
-                if (c) onTrashCake(c.id);
-              }}
-              disabled={!activeCakes.some((cake) => !cake.isScrapped)}
-              className="skeuo-btn py-1 px-1 rounded-lg text-[11px] font-black text-rose-950 disabled:opacity-30 flex items-center justify-center gap-1 cursor-pointer"
-            >
-              🗑️ Scrap Bin
-            </button>
+
+            {/* Multi-layer Loop Return Belt Button */}
+            {onReturnToBatter && (
+              <button
+                onClick={() => {
+                  const c = getCakeAtStation(5) || getCakeAtStation(4) || getCakeAtStation(3);
+                  if (c) onReturnToBatter(c.id);
+                }}
+                disabled={!activeCakes.some((c) => !c.isScrapped)}
+                className="skeuo-btn py-1 px-1 rounded-lg text-[10px] font-black text-purple-950 bg-gradient-to-b from-purple-200 to-purple-400 disabled:opacity-30 flex items-center justify-center gap-0.5 cursor-pointer"
+                title="Send cake back to Station 1 to stack next layer!"
+              >
+                🔁 Add Next Layer
+              </button>
+            )}
+          </div>
+
+          {/* Shipping Chute */}
+          <div className="machine-spout w-8 h-4 rounded-b-md flex items-center justify-center -mb-2 relative">
+            <div className="w-4 h-1.5 bg-indigo-900 rounded-full" />
           </div>
         </div>
       </div>
 
-      {/* 3D Metal Mesh Conveyor Belt Track */}
+      {/* Continuous 3D Metal Mesh Conveyor Belt Track spanning bottom */}
       <div className="relative w-full skeuo-card p-4 overflow-hidden">
-        {/* Conveyor Rubber & Steel Housing */}
+        {/* Conveyor Steel Mesh Track */}
         <div
           className={`relative w-full h-36 metal-mesh-conveyor rounded-2xl border-3 border-slate-600 flex items-center justify-around px-2 overflow-hidden ${
             isBeltMoving ? 'animate-conveyor-active' : ''
           }`}
         >
-          {/* 6 Seamless Station Slots (Without "Slot #" Text Labels) */}
+          {/* 6 Seamless Station Slots (Without any SLOT # labels) */}
           {[0, 1, 2, 3, 4, 5].map((slotIdx) => {
             const cakeAtSlot = getCakeAtStation(slotIdx);
 
@@ -281,7 +341,7 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
                   </div>
                 ) : (
                   <div className="w-24 h-16 border-2 border-dashed border-slate-600/60 rounded-xl flex items-center justify-center text-[11px] font-bold text-slate-400/80">
-                    Empty Pan
+                    Empty Belt
                   </div>
                 )}
               </div>
@@ -289,13 +349,22 @@ export const ConveyorBelt: React.FC<ConveyorBeltProps> = ({
           })}
         </div>
 
-        {/* Green Vista Start Orb ADVANCE BELT Physical Button */}
+        {/* Bottom Mechanics Bar: Open Trash Bin + Green ADVANCE Belt Lever */}
         <div className="w-full flex items-center justify-between mt-4 px-3">
-          <div className="text-xs font-black text-slate-800 flex items-center gap-2 bg-white/70 px-3 py-1.5 rounded-full border border-white shadow-sm">
-            <span className={`w-3 h-3 rounded-full ${isBeltMoving ? 'bg-emerald-500 animate-ping' : 'bg-amber-400'}`} />
-            <span>{isBeltMoving ? 'Conveyor Belt Moving...' : 'Belt Ready'}</span>
-          </div>
+          {/* Open Trash / Scrap Bin at belt end */}
+          <button
+            onClick={() => {
+              const c = getCakeAtStation(5) || activeCakes.find((cake) => !cake.isScrapped);
+              if (c) onTrashCake(c.id);
+            }}
+            disabled={!activeCakes.some((cake) => !cake.isScrapped)}
+            className="skeuo-btn py-2 px-4 rounded-2xl bg-gradient-to-b from-rose-200 via-rose-300 to-rose-400 hover:from-rose-100 hover:to-rose-300 disabled:opacity-40 text-rose-950 font-black text-xs shadow-md border-2 border-rose-400 flex items-center gap-2 cursor-pointer"
+          >
+            <span className="text-lg">🗑️</span>
+            <span>OPEN TRASH BIN (SCRAP CAKE)</span>
+          </button>
 
+          {/* Prominent Green Vista Start Orb ADVANCE BELT Lever / Button */}
           <button
             onClick={handleAdvance}
             className="vista-orb-btn py-3 px-8 rounded-full text-white font-black text-base shadow-2xl flex items-center gap-3 cursor-pointer"

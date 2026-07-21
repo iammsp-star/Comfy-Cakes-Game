@@ -120,6 +120,18 @@ export function useGameEngine() {
     });
   }, [gameState.isPaused, gameState.isGameOver]);
 
+  // Return Mechanism: Sends a cake back to Station 1 (Batter) for multi-layer stacking
+  const returnCakeToBatter = useCallback((cakeId: string) => {
+    audioSynth.playConveyorStep();
+    setValidationFeedback('🔁 Cake returned to Station 1 for next layer!');
+    setGameState((prev) => ({
+      ...prev,
+      activeCakes: prev.activeCakes.map((c) =>
+        c.id === cakeId ? { ...c, currentStationIndex: 1 } : c
+      ),
+    }));
+  }, []);
+
   // Station 0: Select Pan Shape
   const selectShape = useCallback(
     (shape: CakeShape) => {
@@ -255,15 +267,15 @@ export function useGameEngine() {
 
         // Confetti Celebration
         confetti({
-          particleCount: 75,
-          spread: 60,
+          particleCount: 85,
+          spread: 70,
           origin: { y: 0.6 },
         });
 
         const diffMultiplier = gameState.difficulty === 'hard' ? 3 : gameState.difficulty === 'medium' ? 2 : 1;
         const addedScore = (500 + gameState.streakCount * 100) * diffMultiplier;
 
-        setValidationFeedback(`✨ Perfect Cake! +${addedScore} Points!`);
+        setValidationFeedback(`✨ Perfect Cake Delivered! +${addedScore} Points!`);
 
         setGameState((prev) => {
           const nextStreak = prev.streakCount + 1;
@@ -313,7 +325,7 @@ export function useGameEngine() {
   const trashCake = useCallback((cakeId: string) => {
     audioSynth.playTrashScrap();
     triggerChefReaction('surprised');
-    setValidationFeedback('Cake scrapped to the bin.');
+    setValidationFeedback('Cake scrapped to the trash bin.');
 
     setGameState((prev) => ({
       ...prev,
@@ -347,6 +359,7 @@ export function useGameEngine() {
     setDifficulty,
     startNewGame,
     advanceConveyor,
+    returnCakeToBatter,
     selectShape,
     addBatter,
     addFilling,

@@ -15,6 +15,7 @@ const App: React.FC = () => {
     setDifficulty,
     startNewGame,
     advanceConveyor,
+    returnCakeToBatter,
     selectShape,
     addBatter,
     addFilling,
@@ -75,6 +76,7 @@ const App: React.FC = () => {
           onDeliverCake={deliverCake}
           onTrashCake={trashCake}
           onAdvanceBelt={advanceConveyor}
+          onReturnToBatter={returnCakeToBatter}
         />
       </main>
 
