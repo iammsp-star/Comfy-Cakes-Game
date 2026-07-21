@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', 'Fredoka', system-ui, -apple-system, sans-serif;
+    background-color: #1e102d;
+    background-image: 
+      radial-gradient(circle at 50% 30%, #3b1d5a 0%, #1a0b2a 70%),
+      radial-gradient(#ffffff 1px, transparent 1px);
+    background-size: 100% 100%, 24px 24px;
+    color: #ffffff;
+    min-h-screen: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* Heart Clip Path for 2.5D Heart Pan & Layers */
+.clip-heart {
+  clip-path: path("M 40 10 C 20 -10, 0 10, 0 35 C 0 60, 40 85, 40 85 C 40 85, 80 60, 80 35 C 80 10, 60 -10, 40 10 Z");
+}
+
+/* Conveyor Stripe Movement Animation */
+@keyframes moveStripes {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 0;
+  }
+}
+
+/* Fade In Modal Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(15, 10, 30, 0.6);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #7e22ce;
+  border-radius: 4px;
+}
