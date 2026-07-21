@@ -12,151 +12,103 @@ export const TVOrderMonitor: React.FC<TVOrderMonitorProps> = ({
   chefExpression = 'idle',
 }) => {
   return (
-    <div className="relative flex items-end justify-center gap-4 py-2 px-4 select-none">
-      {/* Animated Chef Purble Avatar */}
-      <div className="relative flex flex-col items-center group">
+    <div className="relative flex items-end justify-center gap-6 py-2 px-4 select-none my-2">
+      {/* Authentic 3D Rendered Purble Chef Mascot */}
+      <div className="relative flex flex-col items-center group animate-mascot-idle">
         {/* Speech Bubble */}
-        <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-slate-800 text-xs font-bold py-1 px-3 rounded-full shadow-lg border-2 border-purple-400 whitespace-nowrap animate-bounce">
-          {chefExpression === 'happy' && 'Yummy! Great Job! 🎉'}
-          {chefExpression === 'surprised' && 'Oh no! Oops! 😮'}
-          {chefExpression === 'idle' && 'Bake this cake! 🎂'}
+        <div className="absolute -top-14 left-1/2 -translate-x-1/2 bg-gradient-to-b from-white to-amber-100 text-slate-900 text-xs font-black py-1.5 px-4 rounded-2xl shadow-xl border-3 border-purple-500 whitespace-nowrap animate-bounce z-30">
+          {chefExpression === 'happy' && '🎉 Yummy! Perfect Cake! 🎉'}
+          {chefExpression === 'surprised' && '😮 Oh no! Wrong Order! 😮'}
+          {chefExpression === 'idle' && '👨‍🍳 Bake This Cake! 🎂'}
+          {/* Speech bubble tail */}
+          <div className="absolute -bottom-2.5 left-1/2 -translate-x-1/2 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-purple-500" />
         </div>
 
-        {/* Chef Purble Character */}
-        <div className="relative w-20 h-24 flex flex-col items-center justify-end">
-          {/* Chef Hat */}
-          <div className="w-12 h-10 bg-white rounded-t-2xl border-2 border-slate-300 shadow-md relative overflow-hidden flex items-center justify-center z-10">
-            <div className="w-full h-2 bg-purple-500/20 absolute bottom-0" />
-            <div className="w-6 h-6 rounded-full bg-white border border-slate-200 absolute -top-3" />
-          </div>
-
-          {/* Purble Face */}
-          <div className="relative w-16 h-14 bg-gradient-to-b from-purple-400 to-purple-600 rounded-full border-2 border-purple-700 shadow-lg flex flex-col items-center justify-center -mt-3">
-            {/* Eyes */}
-            <div className="flex gap-3 mb-1">
-              {chefExpression === 'happy' ? (
-                <>
-                  <div className="text-sm font-bold text-yellow-300">^</div>
-                  <div className="text-sm font-bold text-yellow-300">^</div>
-                </>
-              ) : chefExpression === 'surprised' ? (
-                <>
-                  <div className="w-3 h-3 rounded-full bg-white flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
-                  </div>
-                  <div className="w-3 h-3 rounded-full bg-white flex items-center justify-center">
-                    <div className="w-1.5 h-1.5 rounded-full bg-black animate-ping" />
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-slate-800" />
-                  </div>
-                  <div className="w-3.5 h-3.5 rounded-full bg-white flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-slate-800" />
-                  </div>
-                </>
-              )}
-            </div>
-
-            {/* Nose */}
-            <div className="w-2.5 h-2 rounded-full bg-pink-400 border border-purple-800" />
-
-            {/* Mouth */}
-            <div className="mt-1">
-              {chefExpression === 'happy' ? (
-                <div className="w-5 h-2.5 border-b-3 border-yellow-300 rounded-b-full bg-red-400" />
-              ) : chefExpression === 'surprised' ? (
-                <div className="w-3 h-3 rounded-full bg-slate-900 border border-purple-800" />
-              ) : (
-                <div className="w-4 h-1.5 border-b-2 border-slate-900 rounded-b-full" />
-              )}
-            </div>
-
-            {/* Chef Apron / Bow */}
-            <div className="absolute -bottom-2 w-10 h-4 bg-pink-500 rounded-t-md border border-purple-800 flex items-center justify-center">
-              <div className="w-2 h-2 bg-yellow-300 rounded-full" />
-            </div>
-          </div>
+        {/* Purble Chef 3D Mascot Image & Glow */}
+        <div className="relative w-28 h-32 flex items-center justify-center filter drop-shadow-2xl">
+          <div className="absolute inset-0 bg-purple-400/30 rounded-full blur-xl animate-pulse" />
+          <img
+            src="./purble_chef.png"
+            alt="Purble Chef Mascot"
+            className="w-full h-full object-contain relative z-10 transform hover:scale-105 transition-transform duration-300"
+          />
         </div>
       </div>
 
-      {/* Overhead TV Display */}
-      <div className="relative bg-gradient-to-b from-amber-800 via-amber-900 to-amber-950 p-3 rounded-2xl border-4 border-amber-700 shadow-2xl flex items-center gap-4 max-w-lg">
-        {/* Antenna */}
-        <div className="absolute -top-6 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-none">
-          <div className="w-1 h-7 bg-amber-600 transform -rotate-25 origin-bottom rounded-full" />
-          <div className="w-1 h-7 bg-amber-600 transform rotate-25 origin-bottom rounded-full" />
+      {/* 1950s Retro Purple TV Order Monitor */}
+      <div className="relative bg-gradient-to-b from-purple-800 via-purple-900 to-purple-950 p-4 rounded-3xl border-4 border-purple-600 shadow-2xl flex items-center gap-4 max-w-xl">
+        {/* Dual Metallic Antennae */}
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex gap-8 pointer-events-none">
+          <div className="w-1.5 h-10 bg-gradient-to-t from-slate-400 to-slate-200 transform -rotate-30 origin-bottom rounded-full shadow-md" />
+          <div className="w-1.5 h-10 bg-gradient-to-t from-slate-400 to-slate-200 transform rotate-30 origin-bottom rounded-full shadow-md" />
         </div>
 
-        {/* TV Screen Container */}
-        <div className="relative bg-gradient-to-b from-cyan-950 via-slate-900 to-cyan-900 border-4 border-slate-700 rounded-xl p-3 shadow-inner flex items-center gap-4 overflow-hidden">
-          {/* CRT Scanline Glow Overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] pointer-events-none opacity-40" />
+        {/* TV CRT Screen Box */}
+        <div className="relative crt-screen p-3 rounded-2xl flex items-center gap-4 overflow-hidden border-4 border-amber-900/60 shadow-inner">
+          {/* CRT Scanline Overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.15)_50%)] bg-[length:100%_4px] pointer-events-none z-20 opacity-30" />
 
-          {/* Mini 2.5D Target Cake Preview */}
-          <div className="relative flex items-center justify-center p-2 bg-slate-800/80 rounded-lg border border-cyan-500/30 min-w-[120px] min-h-[100px]">
-            <CakeRenderer cake={order} scale={0.7} showShadow={false} />
+          {/* Mini 2.5D Target Cake Display */}
+          <div className="relative flex items-center justify-center p-3 bg-gradient-to-b from-amber-100 to-amber-200 rounded-xl border-2 border-amber-400 shadow-md min-w-[130px] min-h-[110px]">
+            <CakeRenderer cake={order} scale={0.75} showShadow={false} />
           </div>
 
-          {/* Order Details Specification Sheet */}
-          <div className="flex flex-col text-cyan-100 text-xs font-semibold space-y-1">
-            <div className="text-amber-400 font-extrabold text-sm tracking-wide uppercase border-b border-cyan-700/50 pb-0.5 flex items-center gap-1">
-              <span>ORDER #{order.id.substring(6)}</span>
+          {/* Classic Vintage Order Receipt Card */}
+          <div className="flex flex-col text-slate-900 font-extrabold text-xs space-y-1 bg-amber-50 p-2.5 rounded-lg border border-amber-300 shadow-sm min-w-[200px]">
+            <div className="text-purple-900 font-black text-sm tracking-wider uppercase border-b-2 border-amber-300 pb-1 flex items-center justify-between">
+              <span>ORDER #{order.id.substring(6).toUpperCase()}</span>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <span className="text-cyan-400">Shape:</span>
-              <span className="capitalize text-white bg-cyan-950/80 px-1.5 py-0.5 rounded border border-cyan-700">
+            <div className="flex items-center gap-1.5 mt-1">
+              <span className="text-purple-950 font-black">Shape:</span>
+              <span className="capitalize text-purple-900 font-bold bg-amber-200 px-1.5 py-0.5 rounded border border-amber-400">
                 {order.shape}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5">
-              <span className="text-cyan-400">Layers ({order.layers.length}):</span>
-              <div className="flex flex-wrap gap-1">
+            <div className="flex items-start gap-1.5">
+              <span className="text-purple-950 font-black">Layers ({order.layers.length}):</span>
+              <div className="flex flex-col gap-0.5">
                 {order.layers.map((l, i) => (
                   <span
                     key={i}
-                    className="capitalize text-white bg-slate-800 px-1 py-0.5 rounded text-[10px] border border-cyan-800"
+                    className="capitalize text-slate-900 font-bold text-[11px]"
                   >
-                    L{i + 1}: {l.batter}
-                    {l.filling ? ` (${l.filling})` : ''}
+                    • L{i + 1}: {l.batter} {l.filling ? `+ ${l.filling}` : ''}
                   </span>
                 ))}
               </div>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-cyan-400">Icing:</span>
-              <span className="capitalize text-white">
+              <span className="text-purple-950 font-black">Icing:</span>
+              <span className="capitalize text-slate-900 font-bold">
                 {order.icing ? order.icing : 'None'}
               </span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-cyan-400">Topping:</span>
-              <span className="capitalize text-white">
+              <span className="text-purple-950 font-black">Topping:</span>
+              <span className="capitalize text-slate-900 font-bold">
                 {order.topping ? order.topping.replace('_', ' ') : 'None'}
               </span>
             </div>
           </div>
         </div>
 
-        {/* TV Knobs / Speaker Grille */}
-        <div className="flex flex-col items-center justify-center gap-2 px-1">
-          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-900 to-amber-600 border border-amber-500 shadow-md flex items-center justify-center cursor-pointer hover:rotate-45 transition-transform">
-            <div className="w-1 h-3 bg-amber-300 rounded-full" />
+        {/* Retro TV Knobs & Grill */}
+        <div className="flex flex-col items-center justify-center gap-3 px-1">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-slate-700 via-slate-400 to-slate-200 border-2 border-slate-800 shadow-md flex items-center justify-center cursor-pointer hover:rotate-45 transition-transform">
+            <div className="w-1 h-3 bg-slate-900 rounded-full" />
           </div>
-          <div className="w-5 h-5 rounded-full bg-gradient-to-tr from-amber-900 to-amber-600 border border-amber-500 shadow-md flex items-center justify-center cursor-pointer hover:rotate-90 transition-transform">
-            <div className="w-1 h-3 bg-amber-300 rounded-full" />
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-slate-700 via-slate-400 to-slate-200 border-2 border-slate-800 shadow-md flex items-center justify-center cursor-pointer hover:rotate-90 transition-transform">
+            <div className="w-1 h-3 bg-slate-900 rounded-full" />
           </div>
-          {/* Speaker slots */}
+          {/* Speaker Slits */}
           <div className="flex flex-col gap-1 mt-1">
-            <div className="w-6 h-0.5 bg-amber-950 rounded-full" />
-            <div className="w-6 h-0.5 bg-amber-950 rounded-full" />
-            <div className="w-6 h-0.5 bg-amber-950 rounded-full" />
+            <div className="w-7 h-1 bg-purple-950 rounded-full shadow-inner" />
+            <div className="w-7 h-1 bg-purple-950 rounded-full shadow-inner" />
+            <div className="w-7 h-1 bg-purple-950 rounded-full shadow-inner" />
           </div>
         </div>
       </div>

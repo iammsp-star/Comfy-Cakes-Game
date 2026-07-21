@@ -19,28 +19,28 @@ export const GameHUD: React.FC<GameHUDProps> = ({
   const { score, lives, streakCount, ordersCompleted, difficulty, isPaused, isAudioMuted } = gameState;
 
   return (
-    <div className="w-full max-w-6xl bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-950 p-3 rounded-2xl border-4 border-purple-500/50 shadow-2xl flex flex-wrap items-center justify-between gap-4 select-none mb-4">
+    <div className="w-full max-w-6xl skeuo-card p-3.5 rounded-3xl flex flex-wrap items-center justify-between gap-4 select-none mb-3">
       {/* Title & Brand */}
       <div className="flex items-center gap-3">
-        <div className="text-3xl filter drop-shadow-md">🎂</div>
+        <div className="text-4xl filter drop-shadow-md transform hover:rotate-12 transition-transform">🎂</div>
         <div>
-          <h1 className="text-xl font-black text-amber-300 tracking-wide drop-shadow-md font-['Fredoka']">
+          <h1 className="text-2xl font-black text-purple-950 tracking-wide font-['Fredoka'] drop-shadow-sm">
             Purble Place: Comfy Cakes
           </h1>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold text-cyan-300 uppercase tracking-widest bg-purple-950/80 px-2 py-0.5 rounded border border-purple-600">
-              Classic Windows Game
+            <span className="text-[11px] font-black text-sky-900 uppercase tracking-wider bg-white/80 px-2.5 py-0.5 rounded-full border border-sky-300 shadow-sm">
+              Windows Vista Skeuomorphic Edition
             </span>
           </div>
         </div>
       </div>
 
-      {/* Lives Hearts & Stats */}
-      <div className="flex items-center gap-6 bg-slate-900/80 px-4 py-2 rounded-xl border border-purple-500/30">
+      {/* Lives Hearts & Game Stats */}
+      <div className="flex items-center gap-6 bg-white/80 px-5 py-2 rounded-2xl border border-sky-200 shadow-inner">
         {/* Lives Counter */}
         <div className="flex flex-col items-center">
-          <span className="text-[10px] font-bold text-purple-300 uppercase">Lives</span>
-          <div className="flex gap-1 mt-0.5">
+          <span className="text-[10px] font-black text-slate-700 uppercase tracking-wider">Lives</span>
+          <div className="flex gap-1.5 mt-0.5">
             {[1, 2, 3].map((heartIdx) => (
               <span
                 key={heartIdx}
@@ -58,41 +58,41 @@ export const GameHUD: React.FC<GameHUDProps> = ({
 
         {/* Score Display */}
         <div className="flex flex-col items-center min-w-[90px]">
-          <span className="text-[10px] font-bold text-amber-300 uppercase">Score</span>
-          <span className="text-2xl font-black text-white font-mono tracking-wider">
+          <span className="text-[10px] font-black text-purple-900 uppercase tracking-wider">Score</span>
+          <span className="text-2xl font-black text-purple-950 font-mono tracking-wider drop-shadow-xs">
             {score.toLocaleString()}
           </span>
         </div>
 
         {/* Streak Counter */}
         <div className="flex flex-col items-center">
-          <span className="text-[10px] font-bold text-emerald-300 uppercase">Streak</span>
-          <span className="text-lg font-black text-emerald-400">
+          <span className="text-[10px] font-black text-emerald-800 uppercase tracking-wider">Streak</span>
+          <span className="text-lg font-black text-emerald-700">
             🔥 x{streakCount}
           </span>
         </div>
 
         {/* Completed Cakes */}
         <div className="flex flex-col items-center">
-          <span className="text-[10px] font-bold text-cyan-300 uppercase">Cakes</span>
-          <span className="text-lg font-extrabold text-cyan-200">
+          <span className="text-[10px] font-black text-sky-900 uppercase tracking-wider">Cakes</span>
+          <span className="text-lg font-black text-sky-950">
             📦 {ordersCompleted}
           </span>
         </div>
       </div>
 
-      {/* Controls & Difficulty Toggle */}
+      {/* Skeuomorphic Controls & Difficulty Toggle */}
       <div className="flex items-center gap-2">
-        {/* Difficulty buttons */}
-        <div className="flex bg-slate-900 p-1 rounded-xl border border-purple-500/30">
+        {/* Difficulty Buttons */}
+        <div className="flex bg-slate-200/80 p-1 rounded-2xl border border-slate-300 shadow-inner">
           {(['easy', 'medium', 'hard'] as Difficulty[]).map((d) => (
             <button
               key={d}
               onClick={() => onChangeDifficulty(d)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold capitalize transition-all cursor-pointer ${
+              className={`px-3 py-1 rounded-xl text-xs font-black capitalize transition-all cursor-pointer ${
                 difficulty === d
-                  ? 'bg-purple-600 text-white shadow-md'
-                  : 'text-purple-300 hover:text-white hover:bg-purple-800/40'
+                  ? 'bg-gradient-to-b from-purple-500 to-purple-700 text-white shadow-md border border-purple-400'
+                  : 'text-slate-700 hover:text-purple-950 hover:bg-white/60'
               }`}
             >
               {d}
@@ -100,11 +100,11 @@ export const GameHUD: React.FC<GameHUDProps> = ({
           ))}
         </div>
 
-        {/* Mute Toggle */}
+        {/* Sound / Music Toggle */}
         <button
           onClick={onToggleMute}
-          className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-purple-500/30 transition-all cursor-pointer shadow-md"
-          title={isAudioMuted ? 'Unmute Audio' : 'Mute Audio'}
+          className="skeuo-btn p-2 rounded-xl text-slate-800 font-bold border border-slate-300 cursor-pointer shadow-md"
+          title={isAudioMuted ? 'Unmute Audio & Music' : 'Mute Audio & Music'}
         >
           {isAudioMuted ? '🔇' : '🔊'}
         </button>
@@ -112,7 +112,7 @@ export const GameHUD: React.FC<GameHUDProps> = ({
         {/* Pause Toggle */}
         <button
           onClick={onTogglePause}
-          className="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold transition-all cursor-pointer shadow-md border border-amber-300"
+          className="skeuo-btn px-3 py-1.5 rounded-xl text-amber-950 text-xs font-black cursor-pointer shadow-md bg-gradient-to-b from-amber-200 to-amber-400"
         >
           {isPaused ? '▶️ Resume' : '⏸️ Pause'}
         </button>
@@ -120,7 +120,7 @@ export const GameHUD: React.FC<GameHUDProps> = ({
         {/* New Game */}
         <button
           onClick={onNewGame}
-          className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold transition-all cursor-pointer shadow-md border border-emerald-300"
+          className="skeuo-btn px-3.5 py-1.5 rounded-xl text-emerald-950 text-xs font-black cursor-pointer shadow-md bg-gradient-to-b from-emerald-200 to-emerald-400"
         >
           🔄 Restart
         </button>
