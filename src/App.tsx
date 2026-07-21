@@ -12,9 +12,13 @@ const App: React.FC = () => {
     gameState,
     chefExpression,
     validationFeedback,
+    activeDispenserStation,
+    isBeltShuddering,
+    beltMoveDirection,
+    isWrappingBox,
     setDifficulty,
     startNewGame,
-    advanceConveyor,
+    stepConveyor,
     returnCakeToBatter,
     selectShape,
     addBatter,
@@ -75,8 +79,12 @@ const App: React.FC = () => {
           onAddTopping={addTopping}
           onDeliverCake={deliverCake}
           onTrashCake={trashCake}
-          onAdvanceBelt={advanceConveyor}
+          onStepBelt={stepConveyor}
           onReturnToBatter={returnCakeToBatter}
+          activeDispenserStation={activeDispenserStation}
+          isBeltShuddering={isBeltShuddering}
+          beltMoveDirection={beltMoveDirection}
+          isWrappingBox={isWrappingBox}
         />
       </main>
 

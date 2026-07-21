@@ -1,22 +1,38 @@
 import React from 'react';
 import { CakeSpec } from '../types/game';
+import { ChefExpressionType } from '../hooks/useGameEngine';
 import { CakeRenderer } from './CakeRenderer';
 
 interface TVOrderMonitorProps {
   order: CakeSpec;
-  chefExpression?: 'idle' | 'happy' | 'surprised';
+  chefExpression?: ChefExpressionType;
 }
 
 export const TVOrderMonitor: React.FC<TVOrderMonitorProps> = ({
   order,
   chefExpression = 'idle',
 }) => {
+  const getMascotAnimClass = () => {
+    switch (chefExpression) {
+      case 'happy':
+        return 'animate-mascot-happy';
+      case 'surprised':
+        return 'animate-mascot-surprised';
+      case 'anxious':
+        return 'animate-bounce';
+      case 'working':
+        return 'scale-105 transition-transform';
+      default:
+        return 'animate-mascot-idle';
+    }
+  };
+
   return (
     <div className="w-full flex items-start justify-between py-1 px-4 select-none mb-2">
-      {/* Top-Left: Light Blue Square CRT Television & Purble Baker Mascot */}
-      <div className="flex items-center gap-4">
+      {/* Top-Left: Light Blue Square CRT Television & Animated Purble Baker Mascot */}
+      <div className="flex items-center gap-5">
         {/* Light Blue Square CRT TV Monitor */}
-        <div className="relative blue-crt-tv p-3 rounded-2xl flex items-center gap-3 max-w-md">
+        <div className="relative blue-crt-tv p-3 rounded-2xl flex items-center gap-3 max-w-md shadow-2xl">
           {/* Dual Metallic Antennae */}
           <div className="absolute -top-7 left-1/2 -translate-x-1/2 flex gap-6 pointer-events-none">
             <div className="w-1.5 h-8 bg-gradient-to-t from-slate-400 to-slate-200 transform -rotate-25 origin-bottom rounded-full shadow-md" />
@@ -34,8 +50,8 @@ export const TVOrderMonitor: React.FC<TVOrderMonitorProps> = ({
             </div>
 
             {/* Order Specification Receipt Text */}
-            <div className="flex flex-col text-slate-950 font-black text-xs space-y-0.5 bg-amber-50/90 p-2.5 rounded-md border border-amber-300 shadow-xs min-w-[170px]">
-              <div className="text-sky-950 font-black text-xs uppercase border-b-2 border-amber-300 pb-0.5">
+            <div className="flex flex-col text-slate-950 font-black text-xs space-y-0.5 bg-amber-50/95 p-2.5 rounded-md border border-amber-300 shadow-xs min-w-[170px]">
+              <div className="text-sky-950 font-black text-xs uppercase border-b-2 border-amber-300 pb-0.5 tracking-wider">
                 BAKERY TARGET CAKE
               </div>
 
@@ -84,21 +100,42 @@ export const TVOrderMonitor: React.FC<TVOrderMonitorProps> = ({
           </div>
         </div>
 
-        {/* Purble Chef 3D Mascot Character standing next to TV */}
-        <div className="relative flex flex-col items-center group animate-mascot-idle">
+        {/* Purble Chef 3D Mascot Character with Expressive Visual Emotion */}
+        <div className={`relative flex flex-col items-center group ${getMascotAnimClass()}`}>
           {/* Speech Bubble */}
-          <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-slate-900 text-[11px] font-black py-1 px-3 rounded-2xl shadow-lg border-2 border-purple-500 whitespace-nowrap animate-bounce z-30">
-            {chefExpression === 'happy' && '🎉 Yummy! Perfect! 🎉'}
-            {chefExpression === 'surprised' && '😮 Oops! Wrong Cake! 😮'}
+          <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-slate-950 text-[11px] font-black py-1 px-3 rounded-2xl shadow-xl border-3 border-purple-500 whitespace-nowrap z-30">
+            {chefExpression === 'happy' && '🎉 Yummy! Perfect Cake! 🎉'}
+            {chefExpression === 'surprised' && '😮 Oh no! Wrong Cake! 😮'}
+            {chefExpression === 'anxious' && '😰 Hold tight! Belt moving! 😰'}
+            {chefExpression === 'working' && '⚙️ Machine Operating... ⚙️'}
             {chefExpression === 'idle' && '👨‍🍳 Bake This Order! 🎂'}
           </div>
 
-          {/* 3D Mascot Image */}
-          <div className="relative w-24 h-28 flex items-center justify-center filter drop-shadow-xl">
+          {/* Emotional Particles / Sweat Drops */}
+          {chefExpression === 'anxious' && (
+            <div className="absolute -top-4 right-2 text-sky-400 font-black text-lg animate-bounce z-40">
+              💦
+            </div>
+          )}
+          {chefExpression === 'happy' && (
+            <div className="absolute -top-6 left-0 text-amber-400 font-black text-xl animate-ping z-40">
+              ✨
+            </div>
+          )}
+          {chefExpression === 'surprised' && (
+            <div className="absolute -top-6 right-0 text-rose-500 font-black text-xl animate-pulse z-40">
+              ❗
+            </div>
+          )}
+
+          {/* 3D Mascot Image with Dynamic Expressions */}
+          <div className="relative w-26 h-30 flex items-center justify-center filter drop-shadow-2xl">
             <img
               src="./purble_chef.png"
               alt="Purble Chef Mascot"
-              className="w-full h-full object-contain relative z-10 transform hover:scale-105 transition-transform duration-300"
+              className={`w-full h-full object-contain relative z-10 transition-transform duration-300 ${
+                chefExpression === 'surprised' ? 'scale-110 rotate-6' : ''
+              } ${chefExpression === 'happy' ? 'scale-110 -rotate-3' : ''}`}
             />
           </div>
         </div>

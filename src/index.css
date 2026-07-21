@@ -5,10 +5,10 @@
     margin: 0;
     padding: 0;
     font-family: 'Fredoka', 'Outfit', system-ui, -apple-system, sans-serif;
-    background-color: #e5a489;
+    background-color: #f472b6;
     background-image: 
-      radial-gradient(circle at 50% 20%, rgba(255, 245, 230, 0.4) 0%, transparent 60%),
-      linear-gradient(to bottom, #d88d70 0%, #e6a88e 45%, #f2beaa 100%);
+      radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.45) 0%, transparent 65%),
+      linear-gradient(to bottom, #e879f9 0%, #f472b6 40%, #fb7185 100%);
     background-size: 100% 100%;
     color: #1a2b3c;
     min-height: 100vh;
@@ -69,28 +69,172 @@
   background: linear-gradient(to bottom, #e2e8f0 0%, #94a3b8 50%, #475569 100%);
   border: 2px solid #334155;
   box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.8), 0 4px 6px rgba(0,0,0,0.3);
+  transform-origin: top center;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* Dispensing Stream Pouring Animations */
-@keyframes pourStream {
+/* 1. Pan Drop Vertical Bounce Animation */
+@keyframes panVerticalDropBounce {
   0% {
-    height: 0px;
-    opacity: 0.9;
+    transform: translateY(-80px) scale(0.6, 1.4);
+    opacity: 0;
   }
-  50% {
-    height: 42px;
+  60% {
+    transform: translateY(6px) scale(1.2, 0.8);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(-3px) scale(0.95, 1.05);
+  }
+  100% {
+    transform: translateY(0) scale(1, 1);
+    opacity: 1;
+  }
+}
+
+.animate-pan-drop {
+  animation: panVerticalDropBounce 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 2. Batter Nozzle Extend & Retract */
+@keyframes batterNozzleExtend {
+  0% {
+    transform: translateY(0) scaleY(1);
+  }
+  35% {
+    transform: translateY(22px) scaleY(1.3);
+  }
+  75% {
+    transform: translateY(22px) scaleY(1.1);
+  }
+  100% {
+    transform: translateY(0) scaleY(1);
+  }
+}
+
+.animate-batter-extend {
+  animation: batterNozzleExtend 0.5s ease-in-out forwards;
+}
+
+/* 3. Icing Piping Nozzle Swoop & Rotate */
+@keyframes icingNozzleSwoopRotate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  30% {
+    transform: translateY(20px) rotate(-18deg) scale(1.15);
+  }
+  65% {
+    transform: translateY(20px) rotate(18deg) scale(1.1);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+.animate-icing-rotate {
+  animation: icingNozzleSwoopRotate 0.55s ease-in-out forwards;
+}
+
+/* 4. Topping Dropper Gentle Shake */
+@keyframes toppingDropperShake {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  20% {
+    transform: translateY(8px) rotate(-8deg);
+  }
+  40% {
+    transform: translateY(14px) rotate(8deg);
+  }
+  60% {
+    transform: translateY(14px) rotate(-5deg);
+  }
+  80% {
+    transform: translateY(6px) rotate(3deg);
+  }
+}
+
+.animate-topping-shake {
+  animation: toppingDropperShake 0.5s ease-in-out forwards;
+}
+
+/* 5. Star Platform Gift Box Drop, Wrap & Retract Sequence */
+@keyframes giftBoxWrapRetract {
+  0% {
+    transform: translateY(-120px) scale(0.7);
+    opacity: 0;
+  }
+  35% {
+    transform: translateY(0px) scale(1.05);
+    opacity: 1;
+  }
+  60% {
+    transform: translateY(0px) scale(1.0);
     opacity: 1;
   }
   100% {
-    height: 0px;
+    transform: translateY(-140px) scale(0.9);
     opacity: 0;
   }
 }
 
-.animate-pour {
-  animation: pourStream 0.5s ease-in-out forwards;
+.animate-gift-box-wrap {
+  animation: giftBoxWrapRetract 1.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
+/* Dispensing Stream Pouring */
+@keyframes pourStream {
+  0% {
+    height: 0px;
+    opacity: 0.9;
+    transform: scaleX(0.8);
+  }
+  40% {
+    height: 38px;
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+  80% {
+    height: 38px;
+    opacity: 1;
+    transform: scaleX(0.9);
+  }
+  100% {
+    height: 0px;
+    opacity: 0;
+    transform: scaleX(0.5);
+  }
+}
+
+.animate-pour {
+  animation: pourStream 0.45s ease-in-out forwards;
+}
+
+/* Cake Squash & Stretch Impact */
+@keyframes cakeSquashBounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  25% {
+    transform: scale(1.18, 0.82) translateY(5px);
+  }
+  55% {
+    transform: scale(0.92, 1.08) translateY(-3px);
+  }
+  80% {
+    transform: scale(1.04, 0.96) translateY(1px);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+
+.animate-cake-squash {
+  animation: cakeSquashBounce 0.45s ease-out forwards;
+}
+
+/* Physical Spring Counter Push Buttons */
 .counter-square-btn {
   background: linear-gradient(to bottom, #ffffff 0%, #e2effd 40%, #badafb 50%, #cbe3fc 100%);
   border: 3px solid #7eaee3;
@@ -98,7 +242,7 @@
     0 5px 10px rgba(0, 30, 70, 0.22),
     inset 0 2px 4px rgba(255, 255, 255, 0.95),
     inset 0 -3px 5px rgba(0, 40, 100, 0.2);
-  transition: all 0.12s ease;
+  transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.12s ease;
 }
 
 .counter-square-btn:hover:not(:disabled) {
@@ -108,17 +252,16 @@
     0 7px 14px rgba(0, 40, 100, 0.28),
     inset 0 2px 5px rgba(255, 255, 255, 1),
     0 0 12px rgba(79, 147, 227, 0.45);
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .counter-square-btn:active:not(:disabled) {
   background: linear-gradient(to bottom, #accff8 0%, #8ebd5f 50%, #c4dffa 100%);
   box-shadow: 
-    inset 0 4px 8px rgba(0, 30, 80, 0.4),
-    0 2px 4px rgba(0, 20, 50, 0.15);
-  transform: translateY(2px);
+    inset 0 5px 10px rgba(0, 30, 80, 0.5),
+    0 1px 2px rgba(0, 20, 50, 0.2);
+  transform: translateY(3px) scale(0.96);
 }
-
 
 /* Wide Gray Segmented Conveyor Belt */
 .segmented-metal-conveyor {
@@ -131,9 +274,10 @@
     inset 0 12px 18px rgba(0, 0, 0, 0.8),
     inset 0 -12px 18px rgba(0, 0, 0, 0.8),
     0 12px 30px rgba(0, 20, 50, 0.4);
+  transition: transform 0.15s ease;
 }
 
-@keyframes scrollSegmented {
+@keyframes scrollSegmentedRight {
   0% {
     background-position: 0 0, 0 0;
   }
@@ -142,8 +286,21 @@
   }
 }
 
-.animate-conveyor-active {
-  animation: scrollSegmented 0.6s linear infinite;
+@keyframes scrollSegmentedLeft {
+  0% {
+    background-position: 0 0, 0 0;
+  }
+  100% {
+    background-position: -28px 0, 0 0;
+  }
+}
+
+.animate-conveyor-right {
+  animation: scrollSegmentedRight 0.3s linear infinite;
+}
+
+.animate-conveyor-left {
+  animation: scrollSegmentedLeft 0.3s linear infinite;
 }
 
 /* Floor Glowing Green Round Advance Button */
@@ -155,7 +312,7 @@
     inset 0 5px 8px rgba(255, 255, 255, 0.9),
     inset 0 -6px 12px rgba(0, 40, 0, 0.65),
     0 0 20px rgba(70, 204, 27, 0.6);
-  transition: all 0.15s ease;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease;
 }
 
 .floor-green-orb:hover:not(:disabled) {
@@ -164,7 +321,7 @@
     0 15px 30px rgba(20, 120, 5, 0.6),
     inset 0 6px 10px rgba(255, 255, 255, 1),
     0 0 30px rgba(84, 227, 39, 0.8);
-  transform: translateY(-2px) scale(1.03);
+  transform: translateY(-3px) scale(1.05);
 }
 
 .floor-green-orb:active:not(:disabled) {
@@ -172,7 +329,7 @@
   box-shadow: 
     inset 0 6px 14px rgba(0, 30, 0, 0.75),
     0 4px 8px rgba(0, 30, 0, 0.35);
-  transform: translateY(3px) scale(0.97);
+  transform: translateY(4px) scale(0.94);
 }
 
 /* Light Blue Square CRT Television Monitor */
@@ -192,18 +349,59 @@
     inset 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-/* Mascot Idle Breathing */
+/* Mascot Idle & Mood Animations */
 @keyframes mascotBreathe {
   0%, 100% {
-    transform: translateY(0) scale(1);
+    transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-5px) rotate(1deg);
   }
 }
 
 .animate-mascot-idle {
-  animation: mascotBreathe 3.5s ease-in-out infinite;
+  animation: mascotBreathe 3.2s ease-in-out infinite;
+}
+
+@keyframes mascotJoyBounce {
+  0%, 100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  25% {
+    transform: translateY(-16px) scale(0.95, 1.08) rotate(-5deg);
+  }
+  50% {
+    transform: translateY(0) scale(1.08, 0.92) rotate(5deg);
+  }
+  75% {
+    transform: translateY(-8px) scale(0.98, 1.02);
+  }
+}
+
+.animate-mascot-happy {
+  animation: mascotJoyBounce 0.8s ease-in-out infinite;
+}
+
+@keyframes mascotShockShake {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  20% {
+    transform: translateX(-6px) rotate(-6deg);
+  }
+  40% {
+    transform: translateX(6px) rotate(6deg);
+  }
+  60% {
+    transform: translateX(-4px) rotate(-4deg);
+  }
+  80% {
+    transform: translateX(4px) rotate(4deg);
+  }
+}
+
+.animate-mascot-surprised {
+  animation: mascotShockShake 0.45s ease-in-out infinite;
 }
 
 /* Heart Clip Path */
